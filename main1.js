@@ -35,25 +35,36 @@ button.addEventListener("click", ()=>{
     console.log(data)
     data.results.forEach(recipe=>{
     let d = makeEl('div')
+    d.className = 'new-div'
     let heading = makeEl('h3')
     let a = makeEl("a")
     let p = makeEl('p')
-    let closeButton = makeEl('span')
-    closeButton.innerText = 'X'
+    let closeButton = makeEl('button')
+    let img = makeEl('img')
+    img.className = 'image'
+    img.src = recipe.thumbnail
+    closeButton.innerText = 'CLOSE'
     closeButton.className = 'close-button'
     heading.innerText = recipe.title
+    heading.className = 'new-header'
     p.innerText = recipe.ingredients
+    p.className = 'new-p'
     a.innerText = recipe.href
-    heading.style.background = 'red'
+    a.setAttribute('href', recipe.href)
+    a.className = 'new-a'
     let body = document.querySelector('body')
     closeButton.addEventListener('click', (evt)=>{
         let parent = evt.target.parentNode
         parent.remove()
     })
-    body.append(d)
-    d.append(heading,closeButton,p,a)
+    d.append(heading,img,p,a,closeButton)
+    appendDiv(d)
     })
     })
 })
 
-console.log('test')
+const appendDiv = (d)=>{
+    let body = getEl('body')
+    body.append(d)
+}
+

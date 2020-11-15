@@ -30,7 +30,9 @@ ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/", (results)=>{
 })
 
 console.log(cards)
-ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/", makeAllCards)
+ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/?p=2", makeAllCards)
+ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/?p=3", makeAllCards)
+ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/?p=4", makeAllCards)
 console.log(cards)
 
 let button = document.querySelector('#input-button')

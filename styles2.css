@@ -55,9 +55,13 @@ body {
     font-size: 25px;
 }
 .image {
-    max-width: auto;
-    max-height:auto;
-    margin: 5px 50px 5px 130px;
+    max-width: 20%;
+    max-height: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
 }
 .new-a {
     text-align: center;

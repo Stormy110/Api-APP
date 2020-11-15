@@ -1,4 +1,6 @@
-const makeCard = (data) =>{
+import { cards } from "./cards.js"
+
+export const makeCard = (data) =>{
     const card = document.createElement('div')
     let image = document.createElement('img')
     card.className = 'new-div'
@@ -17,6 +19,12 @@ const makeCard = (data) =>{
     a.setAttribute('href', data.href)
     a.className = 'new-a'
     image.src = data.thumbnail
-    card.append(heading,thumbnail,p,a,closeButton)
-
+    card.append(heading,image,p,a,closeButton)
+    cards.push(card)
+    closeButton.addEventListener('click', (evt)=>{
+        let parent = evt.target.parentNode
+        parent.remove()
+    })  
 }
+
+export default makeCard

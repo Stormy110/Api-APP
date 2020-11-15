@@ -1,24 +1,6 @@
-console.log('hello')
-
-
-const makeEl = (tag, options={})=>{
-
-    let el = document.createElement(tag)
-    
-    for(let [key,value] of Object.entries(options)){
-        el[key] = value;
-    }
-
-    return el;
-}
-
-// this function will query select any DOM element
-const getEl = (query) => {
-    let el = document.querySelectorAll(query)
-    if(el.length == 0) return null;
-    if(el.length == 1) return el[0];
-    return el;
-}
+import {makeAllCards} from '/makeAllCards.js'
+import {makeCard} from '/makeCard.js'
+import {cards} from '/cards.js'
 
 
 const ajax = (url, callback, method='GET')=>{
@@ -35,7 +17,7 @@ const ajax = (url, callback, method='GET')=>{
     request.open(method,url)
     request.setRequestHeader("X-Requested-With","XMLHttpRequest");
     request.setRequestHeader("Access-Control-Allow-Origin","*");
-    
+    request.setRequestHeader("Set-Cookie", "Same-Site=None")
     request.setRequestHeader("Content-Type","application/json");
     request.setRequestHeader("Accept","application/json");
     request.send()
@@ -47,44 +29,14 @@ ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/", (results)=>{
     
 })
 
+console.log(cards)
+ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/", makeAllCards)
+console.log(cards)
 
-let button = getEl("#input-button")
-button.addEventListener("click", ()=>{
-    ajax("http://localhost:8080/"+"http://www.recipepuppy.com/api/", (results)=>{
-    let data = JSON.parse(results)
-    console.log(data)
-    data.results.forEach(recipe=>{
-    let d = makeEl('div')
-    d.className = 'new-div'
-    let heading = makeEl('h3')
-    let a = makeEl("a")
-    let p = makeEl('p')
-    let closeButton = makeEl('button')
-    let img = makeEl('img')
-    img.className = 'image'
-    img.src = recipe.thumbnail
-    closeButton.innerText = 'CLOSE'
-    closeButton.className = 'close-button'
-    heading.innerText = recipe.title
-    heading.className = 'new-header'
-    p.innerText = recipe.ingredients
-    p.className = 'new-p'
-    a.innerText = recipe.href
-    a.setAttribute('href', recipe.href)
-    a.className = 'new-a'
-    let body = document.querySelector('body')
-    closeButton.addEventListener('click', (evt)=>{
-        let parent = evt.target.parentNode
-        parent.remove()
-    })
-    d.append(heading,img,p,a,closeButton)
-    appendDiv(d)
-    })
-    })
+let button = document.querySelector('#input-button')
+button.addEventListener('click', ()=>{
+    document.body.append(cards[cards.length-1])
+    cards.pop()
+    console.log(cards)
 })
-
-const appendDiv = (d)=>{
-    let body = getEl('body')
-    body.append(d)
-}
 
